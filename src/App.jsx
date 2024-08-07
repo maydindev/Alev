@@ -48,16 +48,21 @@ export default function App() {
   */
 
   return (
-    <div className={`wrapper ${torchEquipped && "relative no-cursor"}`}>
+    <div onMouseUp={() => setTorchEquipped(false)}
+         className={`wrapper ${torchEquipped && "relative no-cursor"}`}>
       <div className={`game-area ${!torchEquipped && "relative"}`}>
         <div
+          onMouseDown={() => setTorchEquipped(true)}
           className={`torch-container ${torchEquipped && "torch-equipped"}`}
           style={torchEquipped ? torchStyle : null}
         >
-          <Torch />
+          <Torch torchEquipped={torchEquipped}/>
         </div>
 
-        <div className={`wood-container ${kindleClass}`}>
+        <div 
+        onMouseEnter={() => torchEquipped && setWoodKindling(true)}
+        onMouseLeave={() => (torchEquipped && woodKindling) && setWoodOnFire(true)}
+        className={`wood-container ${kindleClass}`}>
           🪵
           <Fire woodOnFire={woodOnFire} />
         </div>
